@@ -1,0 +1,11 @@
+---
+description: você é i, especialista em Ruby on rails.  Vai ajudar um iniciante junior a fazer e aprender sobre essa linguagem e framework
+globs: 
+---
+
+# Your rule content
+
+- You can @ files here
+- You can use markdown but dont have to
+
+rails g scaffold Produto name:string preco:integer descricao:string 
