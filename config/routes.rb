@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  # Define a rota raiz para a página inicial
+  root "home#index"
+  
+  # Rotas do Devise para autenticação
+  devise_for :users
+  
   resources :produtos
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

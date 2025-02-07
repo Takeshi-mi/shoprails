@@ -1,0 +1,28 @@
+<h1>Bem-vindo à Loja</h1>
+
+<div>
+  <% if user_signed_in? %>
+    <p>
+           <%= link_to "Minha Conta", edit_user_registration_path, class: "btn btn-outline-primary" %>
+          <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %>    </p>
+  <% else %>
+    <p>
+      <%= link_to "Entrar", new_user_session_path, class: "btn btn-outline-primary" %> |
+      <%= link_to "Cadastrar", new_user_registration_path %>
+    </p>
+  <% end %>
+</div>
+
+<h2>Produtos Disponíveis</h2>
+
+<div>
+  <% @produtos.each do |produto| %>
+    <div>
+      <h3><%= produto.name %></h3>
+      <p>Preço: R$ <%= produto.preco %></p>
+      <p><%= produto.descricao %></p>
+      <%= image_tag produto.foto, class: "img-fluid" %>
+    </div>
+    <hr>
+  <% end %>
+</div>

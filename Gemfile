@@ -54,3 +54,15 @@ group :test do
 end
 
 gem 'mercadopago-sdk', '~> 2.3'
+
+# Frontend
+gem 'sassc-rails', '~> 2.1'
+gem 'bootstrap', '~> 5.3.2'
+
+# Autenticação e Autorização
+gem 'devise', '~> 4.9'
+gem 'pundit', '~> 2.3'
+
+# Paginação
+gem 'kaminari', '~> 1.2' 
+gem 'kaminari-mongoid'
