@@ -32,4 +32,31 @@
   </tfoot>
 </table>
 
-<%= link_to "Voltar para Meus Pedidos", orders_path %> 
+<% if @order.can_pay? %>
+  <div style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+    <h2>Pagamento</h2>
+    <p>
+      Para finalizar seu pedido, clique no botão abaixo para ser redirecionado ao Mercado Pago:
+    </p>
+    
+    <%= link_to "Pagar com Mercado Pago", @order.payment_url, 
+                class: "button", 
+                style: "display: inline-block; padding: 10px 20px; background-color: #009ee3; color: white; text-decoration: none; border-radius: 5px;" %>
+    
+    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">
+      Após o pagamento, você será redirecionado de volta para nossa loja e receberá um e-mail de confirmação.
+    </p>
+  </div>
+<% elsif @order.paid? %>
+  <div style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #e8f5e9;">
+    <h2 style="color: #2e7d32;">Pagamento Confirmado</h2>
+    <p>
+      Seu pagamento foi processado com sucesso! Em breve você receberá mais informações por e-mail.
+    </p>
+  </div>
+<% end %>
+
+<div style="margin-top: 20px;">
+  <%= link_to "Voltar para Meus Pedidos", orders_path, 
+              style: "text-decoration: none; color: #666;" %>
+</div>
