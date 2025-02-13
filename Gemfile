@@ -18,7 +18,6 @@ gem "jbuilder"
 # gem "redis", ">= 4.0.1"
 
 gem 'mongoid', '~> 9.0', '>= 9.0.2'
-gem 'mercadopago-sdk', '~> 2.1.0'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -35,10 +34,10 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
-
+  
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
-
+  
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
@@ -54,14 +53,13 @@ group :test do
   gem "selenium-webdriver"
 end
 
-# Frontend
+gem 'mercadopago-sdk', '~> 2.1.0' 
+
 gem 'sassc-rails', '~> 2.1'
 gem 'bootstrap', '~> 5.3.2'
 
-# Autenticação e Autorização
 gem 'devise', '~> 4.9'
-gem 'pundit', '~> 2.3'
 
-# Paginação
+
 gem 'kaminari', '~> 1.2' 
 gem 'kaminari-mongoid'
