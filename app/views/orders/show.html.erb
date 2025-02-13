@@ -1,28 +1,77 @@
-<h1>Pedido #<%= @order.id %></h1>
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Pedido #<%= @order.id %></h1>
+    
+    <% status_class = case @order.status
+      when 'pending' then 'warning'
+      when 'paid' then 'success'
+      when 'cancelled' then 'danger'
+      else 'secondary'
+      end %>
+    <span class="badge bg-<%= status_class %> fs-6">
+      <%= @order.status_formatado %>
+    </span>
+  </div>
 
-<p>
-  <strong>Status:</strong> <%= @order.status_formatado %><br>
-  <strong>Data:</strong> <%= @order.created_at.strftime("%d/%m/%Y %H:%M") %>
-</p>
+  <div class="card mb-4">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Data do Pedido:</strong>
+          <br>
+          <%= @order.created_at.strftime("%d/%m/%Y %H:%M") %>
+        </div>
+      </div>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Produto</th>
-      <th>Quantidade</th>
-      <th>Preço Unitário</th>
-      <th>Subtotal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @order.order_items.each do |item| %>
-      <tr>
-        <td><%= item.produto.name %></td>
-        <td><%= item.quantidade %></td>
-        <td>R$ <%= item.preco_unitario %></td>
-        <td>R$ <%= item.subtotal %></td>
-      </tr>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th class="text-center">Quantidade</th>
+              <th class="text-end">Preço Unitário</th>
+              <th class="text-end">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @order.order_items.each do |item| %>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img src="<%= item.produto.foto %>" alt="<%= item.produto.name %>" class="me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                    <%= item.produto.name %>
+                  </div>
+                </td>
+                <td class="text-center"><%= item.quantidade %></td>
+                <td class="text-end">
+                  <%= number_to_currency(item.preco_unitario, unit: "R$", separator: ",", delimiter: ".") %>
+                </td>
+                <td class="text-end">
+                  <%= number_to_currency(item.subtotal, unit: "R$", separator: ",", delimiter: ".") %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="text-end"><strong>Total:</strong></td>
+              <td class="text-end">
+                <strong><%= number_to_currency(@order.total, unit: "R$", separator: ",", delimiter: ".") %></strong>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-end">
+    <%= link_to orders_path, class: "btn btn-outline-primary" do %>
+      <i class="bi bi-arrow-left"></i> Voltar para Meus Pedidos
     <% end %>
+<<<<<<< Updated upstream
   </tbody>
   <tfoot>
     <tr>
@@ -59,4 +108,7 @@
 <div style="margin-top: 20px;">
   <%= link_to "Voltar para Meus Pedidos", orders_path, 
               style: "text-decoration: none; color: #666;" %>
+=======
+  </div>
+>>>>>>> Stashed changes
 </div>

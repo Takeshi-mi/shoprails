@@ -1,30 +1,63 @@
-<h1>Meus Pedidos</h1>
+<div class="container">
+  <h1 class="mb-4">Meus Pedidos</h1>
 
-<% if @orders.empty? %>
-  <p>Você ainda não tem pedidos.</p>
-<% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>Número</th>
-        <th>Data</th>
-        <th>Status</th>
-        <th>Total</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @orders.each do |order| %>
-        <tr>
-          <td>#<%= order.id %></td>
-          <td><%= order.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-          <td><%= order.status_formatado %></td>
-          <td>R$ <%= order.total %></td>
-          <td><%= link_to "Ver Detalhes", order_path(order) %></td>
-        </tr>
+  <% if @orders.empty? %>
+    <div class="text-center py-5">
+      <p class="lead mb-4">Você ainda não tem pedidos.</p>
+      <%= link_to root_path, class: "btn btn-primary" do %>
+        <i class="bi bi-shop"></i> Ir para Loja
       <% end %>
-    </tbody>
-  </table>
-<% end %>
+    </div>
+  <% else %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Número</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th class="text-end">Total</th>
+                <th class="text-center">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @orders.each do |order| %>
+                <tr>
+                  <td><strong>#<%= order.id %></strong></td>
+                  <td><%= order.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+                  <td>
+                    <% status_class = case order.status
+                      when 'pending' then 'warning'
+                      when 'paid' then 'success'
+                      when 'cancelled' then 'danger'
+                      else 'secondary'
+                      end %>
+                    <span class="badge bg-<%= status_class %>">
+                      <%= order.status_formatado %>
+                    </span>
+                  </td>
+                  <td class="text-end">
+                    <%= number_to_currency(order.total, unit: "R$", separator: ",", delimiter: ".") %>
+                  </td>
+                  <td class="text-center">
+                    <%= link_to order_path(order), class: "btn btn-outline-primary btn-sm" do %>
+                      <i class="bi bi-eye"></i> Ver Detalhes
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-<%= link_to "Voltar para Loja", root_path %> 
+    <div class="text-end">
+      <%= link_to root_path, class: "btn btn-outline-primary" do %>
+        <i class="bi bi-arrow-left"></i> Voltar para Loja
+      <% end %>
+    </div>
+  <% end %>
+</div>

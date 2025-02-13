@@ -1,21 +1,18 @@
-<div id="<%= dom_id produto %>">
-  <p>
-    <strong>Name:</strong>
-    <%= produto.name %>
-  </p>
-  <p>
-    <strong>Foto:</strong>
-    <img src="<%= produto.foto %>" class="produto-thumbnail" alt="<%= produto.name %>">
-  </p>
-
-  <p>
-    <strong>Preco:</strong>
-    <%= produto.preco %>
-  </p>
-
-  <p>
-    <strong>Descricao:</strong>
-    <%= produto.descricao %>
-  </p>
-
+<div id="<%= dom_id produto %>" class="card h-100">
+  <img src="<%= produto.foto %>" class="card-img-top" alt="<%= produto.name %>" style="height: 200px; object-fit: cover;">
+  
+  <div class="card-body">
+    <h5 class="card-title"><%= produto.name %></h5>
+    <p class="card-text"><%= truncate(produto.descricao, length: 100) %></p>
+    <h6 class="card-subtitle mb-3 text-success">
+      <%= number_to_currency(produto.preco, unit: "R$", separator: ",", delimiter: ".") %>
+    </h6>
+    
+    <div class="d-flex justify-content-between align-items-center">
+      <%= link_to "Ver detalhes", produto, class: "btn btn-outline-primary" %>
+      <% if user_signed_in? %>
+        <%= button_to "Adicionar ao Carrinho", add_to_cart_produto_path(produto), method: :post, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
 </div>
