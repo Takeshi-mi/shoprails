@@ -7,11 +7,15 @@ Rails.application.routes.draw do
   
   resources :produtos
   
+  post '/pagamento', to: 'pagamentos#create', as: :pagamento
+  get '/pagamento/finalizar', to: 'pagamentos#finalizarpagamento', as: :pagamento_show
+  
   # Rotas do carrinho
   resource :cart, only: [:show] do
     post 'add_item/:produto_id', to: 'carts#add_item', as: :add_item
     delete 'remove_item/:item_id', to: 'carts#remove_item', as: :remove_item
   end
+
 
   # Rotas de pedidos
   resources :orders, only: [:index, :show, :create]
