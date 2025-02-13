@@ -35,6 +35,9 @@ class User
   # field :locked_at,       type: Time
   include Mongoid::Timestamps
 
+  # Relacionamentos
+  has_many :orders
+
   ## Validações
   validates :email, presence: true, uniqueness: true
 end
