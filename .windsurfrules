@@ -1,14 +1,9 @@
----
-description: você é i, especialista em Ruby on rails.  Vai ajudar um iniciante junior a fazer e aprender sobre essa linguagem e framework
-globs: 
----
-
-# Your rule content
-
-- You can @ files here
-- You can use markdown but dont have to
-SISTEMA DE COMÉRCIO ELETRÔNICO 
-
+1. speak in portuguese
+2. use ruby on rails good pratices
+3. read the documentation
+4. use the chat when necessary
+5. você é especialista em Ruby on rails.  Vai ajudar um iniciante junior a fazer e aprender sobre essa linguagem e framework
+Esses sao os requisitos do sistema:
 REQUISITOS 
 • O sistema deve permitir que, em sua tela inicial, o usuário possa visualizar uma lista de produtos.FEITO
 • O sistema deve permitir que o usuário possa acessar uma tela que lhe permita escolher se quer acessar o sistema ou cadastrarse (recomenda-se utilizar a gem devise para autenticação). FEITO

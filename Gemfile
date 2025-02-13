@@ -18,6 +18,7 @@ gem "jbuilder"
 # gem "redis", ">= 4.0.1"
 
 gem 'mongoid', '~> 9.0', '>= 9.0.2'
+gem 'mercadopago-sdk', '~> 2.1.0'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -52,8 +53,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem 'mercadopago-sdk', '~> 2.3'
 
 # Frontend
 gem 'sassc-rails', '~> 2.1'

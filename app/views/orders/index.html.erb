@@ -1,0 +1,30 @@
+<h1>Meus Pedidos</h1>
+
+<% if @orders.empty? %>
+  <p>Você ainda não tem pedidos.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>Data</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td>#<%= order.id %></td>
+          <td><%= order.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <td><%= order.status_formatado %></td>
+          <td>R$ <%= order.total %></td>
+          <td><%= link_to "Ver Detalhes", order_path(order) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to "Voltar para Loja", root_path %> 

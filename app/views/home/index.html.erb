@@ -3,12 +3,16 @@
 <div>
   <% if user_signed_in? %>
     <p>
-           <%= link_to "Minha Conta", edit_user_registration_path, class: "btn btn-outline-primary" %>
-          <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %>    </p>
+      <%= link_to "Minha Conta", edit_user_registration_path %> |
+      <%= button_to "Sair", destroy_user_session_path, method: :delete %> |
+      <%= link_to "Meu Carrinho", cart_path %> |
+      <%= link_to "Meus Pedidos", orders_path %>
+    </p>
   <% else %>
     <p>
-      <%= link_to "Entrar", new_user_session_path, class: "btn btn-outline-primary" %> |
-      <%= link_to "Cadastrar", new_user_registration_path %>
+      <%= link_to "Entrar", new_user_session_path %> |
+      <%= link_to "Cadastrar", new_user_registration_path %> |
+      <%= link_to "Carrinho", cart_path %>
     </p>
   <% end %>
 </div>
@@ -22,6 +26,7 @@
       <p>Preço: R$ <%= produto.preco %></p>
       <p><%= produto.descricao %></p>
       <%= image_tag produto.foto, class: "img-fluid" %>
+      <%= button_to "Adicionar ao Carrinho", add_item_cart_path(produto_id: produto.id), method: :post %>
     </div>
     <hr>
   <% end %>
