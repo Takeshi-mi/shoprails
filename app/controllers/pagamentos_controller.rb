@@ -54,8 +54,9 @@ class PagamentosController < ApplicationController
   end
 
   def finalizarpagamento
-    # Atribui o total do carrinho ao @total para uso na view
-    @total = current_user.cart.total
+    # Ensure user has a cart; create one if missing
+    cart = current_user.cart || current_user.create_cart
+    @total = cart.total
   end
 
   private

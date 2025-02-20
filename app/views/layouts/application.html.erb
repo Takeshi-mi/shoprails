@@ -36,8 +36,8 @@
               <%= link_to "Minha Conta", edit_user_registration_path, class: "nav-link" %>
             </li>
             <li class="nav-item">
-              <%= link_to "Sair", destroy_user_session_path, method: :delete, class: "nav-link" %>
-            </li>
+              <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "nav-link" %>
+              </li>
             <li class="nav-item">
               <%= link_to "Carrinho", cart_path, class: "nav-link" %>
             </li>

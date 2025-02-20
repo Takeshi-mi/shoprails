@@ -1,5 +1,6 @@
 <h1>Finalizar Pagamento</h1>
 
+<p> Valor total da compra: <%= @total.to_f %> </p>
 <div id="paymentBrick_container"></div>
 <script>
   const mp = new MercadoPago('TEST-bd52f474-08c6-4b03-96cc-04460592d679', {
