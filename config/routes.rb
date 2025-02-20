@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   post '/pagamento', to: 'pagamentos#create', as: :pagamento
   get '/pagamento/finalizar', to: 'pagamentos#finalizarpagamento', as: :pagamento_show
   
+  get '/pagamento/sucesso', to: 'pagamentos#sucesso', as: :pagamento_sucesso
+  get '/pagamento/erro', to: 'pagamentos#erro', as: :pagamento_erro
+  get '/pagamento/processando', to: 'pagamentos#processando', as: :pagamento_processando
+  
   # Rotas do carrinho
   resource :cart, only: [:show] do
     post 'add_item/:produto_id', to: 'carts#add_item', as: :add_item

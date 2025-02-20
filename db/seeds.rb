@@ -1,4 +1,4 @@
-Produto.destroy_all
+# Produto.destroy_all
 
 IMAGENS = [
   "https://raw.githubusercontent.com/ruby/www.ruby-lang.org/master/images/header-ruby-logo.png",
@@ -14,7 +14,8 @@ DESCRIÇÕES = [
 ]
 8.times do |i|
   Produto.create!(
-    name: "Produto #{i}",
+    # name: "Produto #{i}",
+    name: "Produto Ruby",
     preco: 10.00 + i*2,
     descricao: DESCRIÇÕES[i % DESCRIÇÕES.length],
     foto: IMAGENS[i % 2]
@@ -28,3 +29,12 @@ Produto.create!(
 )
 
 puts "Produtos criados com sucesso!"
+
+User.create!(
+  email: 'teste@teste',
+  password: '123456'
+)
+
+puts "Usuário criado com sucesso!"
+
+

@@ -1,56 +1,70 @@
 class PagamentosController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
- 
+
   def index
+    @pedidos = Pedido.all
   end
 
   def create
     require 'mercadopago'
-    # sdk = Mercadopago::SDK.new(ENV['MERCADO_PAGO_ACCESS_TOKEN'])
     sdk = Mercadopago::SDK.new('TEST-8120324154956106-021217-676a0055762b74af4f1ae99a531a4e42-561811876')
-    binding.pry
+  
     payment_data = {
       transaction_amount: params[:transaction_amount].to_f,
       token: params[:token],
       description: params[:description],
       installments: params[:installments].to_i,
-      payment_method_id: params[:paymentMethodId],
+      payment_method_id: params[:payment_method_id],
       payer: {
-        email: [:payer][:email],
+        email: params[:payer][:email],
         identification: {
-          type: [:payer][:identification][:type],
-          number: [:payer][:identification][:number]
+          type: params[:payer][:identification][:type],
+          number: params[:payer][:identification][:number]
         },
         first_name: params[:cardholderName]
       }
     }
-    if
-    begin
-      payment_response = sdk.payment.create(payment_data)
-      payment = payment_response[:response]
-
-      if payment['status'] == 'approved'
-        # Criar pedido no banco de dados
+  
+    payment_response = sdk.payment.create(payment_data)
+    puts "Resposta Completa: #{payment_response.inspect}"
+  
+    if payment_response[:response]
+      status = payment_response[:response]['status']
+      case status
+      when 'approved'
+        # Save the order in the database
         order = current_user.orders.create!(
-          status: 'paid',
-          payment_id: payment['id'],
-          total_amount: payment_data[:transaction_amount]
+          payment_id: payment_response[:response]['id'],
+          total_amount: payment_data[:transaction_amount],
+          status: 'paid'
         )
-        
-        # Limpar o carrinho após o pagamento bem sucedido
-        session[:cart] = nil
-        
-        flash[:success] = 'Pagamento realizado com sucesso!'
-        redirect_to order_path(order)
+        session[:cart] = {}
+        render json: { success: true, redirect_url: pagamento_sucesso_path, notice: "Pagamento aprovado! Pedido salvo com ID: #{order.id}" }
+      when 'in_process'
+        render json: { success: true, redirect_url: pagamento_processando_path, notice: "Pagamento em processamento." }
+      when 'rejected'
+        render json: { success: false, redirect_url: pagamento_erro_path, notice: "Pagamento rejeitado." }, status: :unprocessable_entity
       else
-        flash[:error] = 'Erro no processamento do pagamento. Por favor, tente novamente.'
-        redirect_to cart_path
+        render json: { success: false, error: "Status desconhecido: #{status}" }, status: :unprocessable_entity
       end
-    rescue => e
-      flash[:error] = 'Ocorreu um erro no processamento do pagamento. Por favor, tente novamente.'
-      Rails.logger.error("Erro no pagamento: #{e.message}")
-      redirect_to cart_path
+    else
+      render json: { success: false, error: "Resposta inválida" }, status: :unprocessable_entity
     end
   end
+
+  private
+    def set_pedido
+      @pedido = Pedido.find(params[:id])
+    end
+
+    def pedido_params
+      params.fetch(:pedido, {})
+    end
+
+    def salvar_pedido
+      pedidos_array = params[:pedidos]
+      Pedido.create!(pedidos: pedidos_array)
+      redirect_to products_path, notice: "Pedido salvo com sucesso!"
+    end
 end
