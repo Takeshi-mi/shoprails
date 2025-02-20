@@ -37,7 +37,7 @@ class User
 
   # Relacionamentos
   has_many :orders
-
+  has_one :cart
   ## Validações
   validates :email, presence: true, uniqueness: true
 end

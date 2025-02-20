@@ -34,13 +34,13 @@ class PagamentosController < ApplicationController
       case status
       when 'approved'
         # Save the order in the database
-        # order = current_user.orders.create!(
-        #   payment_id: payment_response[:response]['id'],
-        #   total_amount: payment_data[:transaction_amount],
-        #   status: 'paid'
-        # # )
-        # session[:cart] = {}
-        render json: { success: true, redirect_url: pagamento_sucesso_path, notice: "Pagamento aprovado! Pedido salvo com ID: " }
+        order = current_user.orders.create!(
+          pagamento_id: payment_response[:response]['id'],
+          total: payment_data[:transaction_amount],
+          status: 'approved'
+        )
+        current_user.cart.destroy
+        render json: { success: true, redirect_url: pagamento_sucesso_path, notice: "Pagamento aprovado! Pedido salvo com ID: #{current_user.order.pagamento_id}" }
       when 'in_process'
         render json: { success: true, redirect_url: pagamento_processando_path, notice: "Pagamento em processamento." }
       when 'rejected'

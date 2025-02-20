@@ -3,7 +3,7 @@ class Order
   include Mongoid::Timestamps
 
   belongs_to :user
-
+  field :pagamento_id, type: String
   field :total, type: Float
   field :status, type: String, default: 'in_progress' # Possíveis: approved, in_progress, rejected
 
