@@ -1,34 +1,49 @@
 # Produto.destroy_all
 
 IMAGENS = [
-  "https://store.museumofjewelry.com/cdn/shop/articles/ruby-the-king-of-precious-stone-709034.jpg?v=1680493164",
-  "https://cdn-icons-png.flaticon.com/256/10112/10112502.png"
+  "https://store.museumofjewelry.com/cdn/shop/articles/ruby-the-king-of-precious-stone-709034.jpg?v=1680493164", # Rails
+  "https://mongoid.github.io/images/mongoid.png", # Mongoid
+  "https://cdn-icons-png.flaticon.com/256/10112/10112502.png", # Pry
+  "https://camo.githubusercontent.com/a57d325456368a7f0a3a22a2a6b97ad9496d3b6b9b12b0b7f1bf9cd966007286/68747470733a2f2f7777772e64726f70626f782e636f6d2f732f7a70386f36336b7175627932726c6e2f7072795f6c6f676f5f3335302e706e673f7261773d31", # Pry-Doc
+  "https://camo.githubusercontent.com/a57d325456368a7f0a3a22a2a6b97ad9496d3b6b9b12b0b7f1bf9cd966007286/68747470733a2f2f7777772e64726f70626f782e636f6d2f732f7a70386f36336b7175627932726c6e2f7072795f6c6f676f5f3335302e706e673f7261773d31", # Pry-Nav
+  "https://camo.githubusercontent.com/a57d325456368a7f0a3a22a2a6b97ad9496d3b6b9b12b0b7f1bf9cd966007286/68747470733a2f2f7777772e64726f70626f782e636f6d2f732f7a70386f36336b7175627932726c6e2f7072795f6c6f676f5f3335302e706e673f7261773d31", # Pry-Rails
+  "https://camo.githubusercontent.com/a57d325456368a7f0a3a22a2a6b97ad9496d3b6b9b12b0b7f1bf9cd966007286/68747470733a2f2f7777772e64726f70626f782e636f6d2f732f7a70386f36336b7175627932726c6e2f7072795f6c6f676f5f3335302e706e673f7261773d31", # Pry-Theme
+  "https://miro.medium.com/v2/resize:fit:698/1*GByJx-gKYjcey2pG1PUZ7g.jpeg", # Capybara
+  "https://images.seeklogo.com/logo-png/34/2/mercado-pago-logo-png_seeklogo-342347.png", # MercadoPago SDK
+  "https://store.museumofjewelry.com/cdn/shop/articles/ruby-the-king-of-precious-stone-709034.jpg?v=1680493164", # Sassc-Rails
+  "https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png", # Bootstrap
+  "https://minds.digital/wp-content/uploads/2023/06/autenticacao-segura.png", # Devise
+  "https://sitechecker.pro/wp-content/uploads/2017/12/pagination.png", # Kaminari
+  "https://sitechecker.pro/wp-content/uploads/2017/12/pagination.png" # Kaminari-Mongoid
 ]
 
-DESCRIÇÕES = [
-  "O pior produto da empresa",
-  "O produto mais barato da empresa",
-  "O produto mais cheiroso da empresa",
-  "O produto mais rápido da empresa",
-  "O produto mais lento da empresa"
+gemas = [
+  { name: "Rails", descricao: "Framework web robusto para construir aplicações modernas." },
+  { name: "Mongoid", descricao: "ORM para MongoDB, ideal para bancos NoSQL." },
+  { name: "Pry", descricao: "Uma alternativa poderosa ao IRB, com navegação por métodos e inspeção de objetos." },
+  { name: "Pry-Doc", descricao: "Extensão do Pry que fornece acesso à documentação oficial do Ruby e do Rails." },
+  { name: "Pry-Nav", descricao: "Adiciona suporte a comandos de navegação passo a passo no Pry." },
+  { name: "Pry-Rails", descricao: "Integra o Pry ao Rails, substituindo o console padrão." },
+  { name: "Pry-Theme", descricao: "Permite personalizar o tema visual do Pry." },
+  { name: "Capybara", descricao: "Ferramenta para testes de sistema que simula interações de usuário em navegadores." },
+  { name: "MercadoPago SDK", descricao: "SDK oficial do Mercado Pago para integração de pagamentos online." },
+  { name: "Sassc-Rails", descricao: "Integra o compilador SassC ao Rails para uso de SCSS." },
+  { name: "Bootstrap", descricao: "Framework front-end para desenvolvimento de interfaces responsivas." },
+  { name: "Devise", descricao: "Solução completa para autenticação de usuários em aplicações Rails." },
+  { name: "Kaminari", descricao: "Gem para paginação de resultados em consultas ao banco de dados." },
+  { name: "Kaminari-Mongoid", descricao: "Extensão do Kaminari para trabalhar com o ORM Mongoid." }
 ]
-8.times do |i|
+
+gemas.each_with_index do |gema, index|
   Produto.create!(
-    # name: "Produto #{i}",
-    name: "Produto Ruby",
-    preco: 10.00 + i*2,
-    descricao: DESCRIÇÕES[i % DESCRIÇÕES.length],
-    foto: IMAGENS[i % 2]
+    name: gema[:name],
+    preco: 10.00 + index * 2,
+    descricao: gema[:descricao],
+    foto: IMAGENS[index] || "https://cdn-icons-png.flaticon.com/256/10112/10112502.png"
   )
 end
-Produto.create!(
-  name: "Produto especial",
-  preco: 100000,
-  descricao: "2 REAIS OU UM PRESENTE MISTERIOSO?",
-  foto: "https://www.foldaboxusa.com/cdn/shop/products/32156_Ruby_on_Red_A5_Deep_2000x.jpg?v=1625250703"
-)
 
-puts "Produtos criados com sucesso!"
+puts "Gemas adicionadas com sucesso!"
 
 User.create!(
   email: 'teste@teste',
