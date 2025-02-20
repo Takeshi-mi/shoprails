@@ -53,6 +53,11 @@ class PagamentosController < ApplicationController
     end
   end
 
+  def finalizarpagamento
+    # Atribui o total do carrinho ao @total para uso na view
+    @total = current_user.cart.total
+  end
+
   private
     def set_pedido
       @pedido = Order.find(params[:id])

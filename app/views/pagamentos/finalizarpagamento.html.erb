@@ -1,71 +1,70 @@
-
 <h1>Finalizar Pagamento</h1>
 
 <div id="paymentBrick_container"></div>
-        <script>
+<script>
   const mp = new MercadoPago('TEST-bd52f474-08c6-4b03-96cc-04460592d679', {
     locale: 'pt-BR'
   });
   const bricksBuilder = mp.bricks();
-    const renderPaymentBrick = async (bricksBuilder) => {
-      const settings = {
-        initialization: {
-          amount: @total,
-          preferenceId: "<PREFERENCE_ID>",
-          payer: {
-            firstName: "Takas",
-            lastName: "Miura",
-            email: "teste@teste.com",
+  const renderPaymentBrick = async (bricksBuilder) => {
+    const settings = {
+      initialization: {
+        amount: <%= @total.to_f %>,
+        preferenceId: "<PREFERENCE_ID>",
+        payer: {
+          firstName: "Takas",
+          lastName: "Miura",
+          email: "teste@gmail.com",
+        },
+      },
+      customization: {
+        visual: {
+          style: {
+            theme: "default",
           },
         },
-        customization: {
-          visual: {
-            style: {
-              theme: "default",
-            },
-          },
-          paymentMethods: {
-            creditCard: "all",
-										atm: "all",
-            maxInstallments: 1
-          },
+        paymentMethods: {
+          creditCard: "all",
+          atm: "all",
+          maxInstallments: 1
         },
-        callbacks: {
-          onReady: () => {
-          },
-          onSubmit: ({ selectedPaymentMethod, formData }) => {
+      },
+      callbacks: {
+        onReady: () => {
+        },
+        onSubmit: ({ selectedPaymentMethod, formData }) => {
           console.log("Enviando para /process_payment:", JSON.stringify(formData, null, 2));
-            return new Promise((resolve, reject) => {
-              fetch("/pagamento", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
+          return new Promise((resolve, reject) => {
+            fetch("/pagamento", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            })
+              .then((response) => response.json())
+              .then((response) => {
+                console.log("Resposta do servidor:", response);
+                console.log("Resposta do servidor:", response.redirect_url);
+                window.location.href = response.redirect_url;
+                resolve();
               })
-                .then((response) => response.json())
-                .then((response) => {
-                  console.log("Resposta do servidor:", response);
-                    console.log("Resposta do servidor:", response.redirect_url);
-                    window.location.href = response.redirect_url;
-                  resolve();
-                })
-                .catch((error) => {
-                  console.error("Erro no pagamento:", error);
-                  reject();
-                });
-            });
-          },
-          onError: (error) => {
-            console.error(error);
-          },
+              .catch((error) => {
+                console.error("Erro no pagamento:", error);
+                reject();
+              });
+          });
         },
-      };
-      window.paymentBrickController = await bricksBuilder.create(
-        "payment",
-        "paymentBrick_container",
-        settings
-      );
+        onError: (error) => {
+          console.error(error);
+        },
+      },
     };
-    renderPaymentBrick(bricksBuilder);
-  </script>
+    window.paymentBrickController = await bricksBuilder.create(
+      "payment",
+      "paymentBrick_container",
+      settings
+    );
+  };
+  renderPaymentBrick(bricksBuilder);
+</script>
