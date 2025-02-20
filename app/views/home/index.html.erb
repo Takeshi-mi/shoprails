@@ -1,33 +1,44 @@
-<h1>Bem-vindo à Loja</h1>
+<div class="container mt-4">
+  <h1>Bem-vindo à Loja</h1>
 
-<div>
-  <% if user_signed_in? %>
-    <p>
-      <%= link_to "Minha Conta", edit_user_registration_path %> |
-      <%= button_to "Sair", destroy_user_session_path, method: :delete %> |
-      <%= link_to "Meu Carrinho", cart_path %> |
-      <%= link_to "Meus Pedidos", orders_path %>
-    </p>
-  <% else %>
-    <p>
-      <%= link_to "Entrar", new_user_session_path %> |
-      <%= link_to "Cadastrar", new_user_registration_path %> |
-      <%= link_to "Carrinho", cart_path %>
-    </p>
-  <% end %>
-</div>
+  <div>
+    <% if user_signed_in? %>
+      <p>
+        <%= link_to "Minha Conta", edit_user_registration_path, class: "btn btn-info" %>
+        |
+        <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+        |
+        <%= link_to "Meu Carrinho", cart_path, class: "btn btn-primary" %>
+        |
+        <%= link_to "Meus Pedidos", orders_path, class: "btn btn-secondary" %>
+      </p>
+    <% else %>
+      <p>
+        <%= link_to "Entrar", new_user_session_path, class: "btn btn-primary" %>
+        |
+        <%= link_to "Cadastrar", new_user_registration_path, class: "btn btn-success" %>
+        |
+        <%= link_to "Carrinho", cart_path, class: "btn btn-warning" %>
+      </p>
+    <% end %>
+  </div>
 
-<h2>Produtos Disponíveis</h2>
+  <h2>Produtos Disponíveis</h2>
 
-<div>
-  <% @produtos.each do |produto| %>
-    <div>
-      <h3><%= produto.name %></h3>
-      <p>Preço: R$ <%= produto.preco %></p>
-      <p><%= produto.descricao %></p>
-      <%= image_tag produto.foto, class: "img-fluid" %>
-      <%= button_to "Adicionar ao Carrinho", add_item_cart_path(produto_id: produto.id), method: :post %>
-    </div>
-    <hr>
-  <% end %>
+  <div class="row">
+    <% @produtos.each do |produto| %>
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <%= image_tag produto.foto, class: "card-img-top", alt: produto.name, style: "height: 200px; object-fit: cover;" %>
+          <div class="card-body">
+            <h5 class="card-title"><%= produto.name %></h5>
+            <p class="card-text">Preço: R$ <%= produto.preco %></p>
+            <p class="card-text"><%= produto.descricao %></p>
+            <%= button_to "Adicionar ao Carrinho", add_item_cart_path(produto_id: produto.id), method: :post, class: "btn btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+      <hr class="w-100 d-md-none">
+    <% end %>
+  </div>
 </div>

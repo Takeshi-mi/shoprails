@@ -1,0 +1,23 @@
+pt:
+  devise:
+    sessions:
+      new:
+        sign_in: "Entrar"
+        email: "Email"
+        password: "Senha"
+        remember_me: "Lembrar-me"
+        submit: "Entrar"
+    registrations:
+      new:
+        sign_up: "Registrar"
+        email: "Email"
+        password: "Senha"
+        password_confirmation: "Confirmação de Senha"
+        submit: "Registrar"
+      edit:
+        update: "Atualizar Conta"
+        email: "Email"
+        password: "Nova Senha"
+        password_confirmation: "Confirmação de Nova Senha"
+        current_password: "Senha Atual"
+        submit: "Atualizar"

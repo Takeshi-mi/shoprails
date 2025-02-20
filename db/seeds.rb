@@ -1,7 +1,7 @@
 # Produto.destroy_all
 
 IMAGENS = [
-  "https://raw.githubusercontent.com/ruby/www.ruby-lang.org/master/images/header-ruby-logo.png",
+  "https://store.museumofjewelry.com/cdn/shop/articles/ruby-the-king-of-precious-stone-709034.jpg?v=1680493164",
   "https://cdn-icons-png.flaticon.com/256/10112/10112502.png"
 ]
 
