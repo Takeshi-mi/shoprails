@@ -1,12 +1,15 @@
 class OrderItem
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   belongs_to :order
   belongs_to :produto
 
-  field :quantidade, type: Integer
+  field :quantidade, type: Integer, default: 1
   field :preco_unitario, type: Float
 
-  validates :quantidade, numericality: { greater_than: 0 }
-  validates :preco_unitario, numericality: { greater_than_or_equal_to: 0 }
+  # Calcula o subtotal do item
+  def subtotal
+    quantidade * preco_unitario
+  end
 end

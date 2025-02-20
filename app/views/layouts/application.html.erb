@@ -3,6 +3,7 @@
 <head>
   <title>Rails Shop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= favicon_link_tag 'favicon.png' %>
   <%# <%= csrf_meta_tags %>
   <%# <%= csp_meta_tag %>
 
@@ -21,7 +22,10 @@
   <!-- Navbar Bootstrap -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Rails Shop</a>
+      <a class="navbar-brand" href="/">
+        <%= image_tag 'favicon.png', width: 30, height: 30, class: "d-inline-block align-top", alt: "Icon" %>
+        Rails Shop
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -53,12 +57,12 @@
     </div>
   </nav>
 
-  <% if notice %>
-    <p style="color: green"><%= notice %></p>
-  <% end %>
-  
-  <% if alert %>
-    <p class="m5" style="color: red"><%= alert %></p>
+  <!-- Flash Messages -->
+  <% flash.each do |key, message| %>
+    <div class="alert <%= key == 'notice' ? 'alert-success' : 'alert-danger' %> alert-dismissible fade show" role="alert">
+      <%= message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   <% end %>
 
   <%= yield %>

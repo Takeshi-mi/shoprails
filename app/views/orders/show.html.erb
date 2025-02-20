@@ -17,10 +17,10 @@
   <tbody>
     <% @order.order_items.each do |item| %>
       <tr>
-        <td><%= item.produto.name %></td>
-        <td><%= item.quantidade %></td>
-        <td>R$ <%= item.preco_unitario %></td>
-        <td>R$ <%= item.subtotal %></td>
+        <td><%= item.produto&.name || "N/A" %></td>
+        <td><%= item.quantidade || "N/A" %></td>
+        <td>R$ <%= item.preco_unitario || "N/A" %></td>
+        <td>R$ <%= item.produto ? item.subtotal : "N/A" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
   </tfoot>
 </table>
 
-<%= link_to "Voltar para Meus Pedidos", orders_path %> 
+<%= link_to "Voltar para Meus Pedidos", orders_path %>

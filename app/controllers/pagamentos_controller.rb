@@ -39,8 +39,8 @@ class PagamentosController < ApplicationController
           total: payment_data[:transaction_amount],
           status: 'approved'
         )
-        current_user.cart.destroy
-        render json: { success: true, redirect_url: pagamento_sucesso_path, notice: "Pagamento aprovado! Pedido salvo com ID: #{current_user.order.pagamento_id}" }
+        current_user.cart_item.destroy_all
+        render json: { success: true, redirect_url: pagamento_sucesso_path, notice: "Pagamento aprovado!" }
       when 'in_process'
         render json: { success: true, redirect_url: pagamento_processando_path, notice: "Pagamento em processamento." }
       when 'rejected'

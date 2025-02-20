@@ -4,7 +4,7 @@ class Cart
 
   belongs_to :user, optional: true
   has_many :cart_items, dependent: :destroy
-
+  
   # Campo para armazenar um token para carrinho de usuários não logados
   field :token, type: String
 

@@ -12,7 +12,8 @@ class CartsController < ApplicationController
     cart_item.quantidade += quantidade
     
     if cart_item.save
-      redirect_to cart_path, notice: 'Produto adicionado ao carrinho!'
+      flash[:notice] =  'Produto adicionado ao carrinho!'
+      redirect_to home_path
     else
       redirect_to root_path, alert: 'Erro ao adicionar produto ao carrinho.'
     end

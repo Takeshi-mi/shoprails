@@ -11,6 +11,8 @@ class Order
   validates :total, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :status, inclusion: { in: ['approved', 'in_progress', 'rejected'] }
 
+  has_many :order_items
+
   # Retorna o status formatado em português
   def status_formatado
     case status

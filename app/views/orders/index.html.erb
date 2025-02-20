@@ -1,30 +1,50 @@
-<h1>Meus Pedidos</h1>
+<h1 class="mb-4">Meus Pedidos</h1>
 
 <% if @orders.empty? %>
-  <p>Você ainda não tem pedidos.</p>
+  <div class="alert alert-info">
+    Você ainda não tem pedidos.
+  </div>
 <% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>Número</th>
-        <th>Data</th>
-        <th>Status</th>
-        <th>Total</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @orders.each do |order| %>
-        <tr>
-          <td>#<%= order.id %></td>
-          <td><%= order.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-          <td><%= order.status_formatado %></td>
-          <td>R$ <%= order.total %></td>
-          <td><%= link_to "Ver Detalhes", order_path(order) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="accordion" id="ordersAccordion">
+    <% @orders.each_with_index do |order, index| %>
+      <div class="accordion-item mb-3">
+        <h2 class="accordion-header" id="heading-<%= index %>">
+          <button class="accordion-button collapsed" type="button" 
+              data-bs-toggle="collapse" data-bs-target="#collapse-<%= index %>" 
+              aria-expanded="false" aria-controls="collapse-<%= index %>">
+            Pedido #<%= order.id %> – <%= order.created_at.strftime("%d/%m/%Y %H:%M") %> – 
+            <%= order.status_formatado %> – Total: R$ <%= order.total %>
+          </button>
+        </h2>
+        <div id="collapse-<%= index %>" class="accordion-collapse collapse" 
+             aria-labelledby="heading-<%= index %>" data-bs-parent="#ordersAccordion">
+          <div class="accordion-body">
+            <h5>Itens do Pedido</h5>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Produto</th>
+                  <th>Quantidade</th>
+                  <th>Preço Unitário</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% order.order_items.each do |item| %>
+                  <tr>
+                    <td><%= item.produto&.name || "N/A" %></td>
+                    <td><%= item.quantidade || "N/A" %></td>
+                    <td>R$ <%= item.preco_unitario || "N/A" %></td>
+                    <td>R$ <%= item.produto ? (item.quantidade * item.preco_unitario) : "N/A" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
-<%= link_to "Voltar para Loja", root_path %> 
+<div class="mt-4">

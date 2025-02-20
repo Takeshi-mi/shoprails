@@ -7,9 +7,11 @@ Rails.application.routes.draw do
   
   resources :produtos
   
+
   post '/pagamento', to: 'pagamentos#create', as: :pagamento
   get '/pagamento/finalizar', to: 'pagamentos#finalizarpagamento', as: :pagamento_show
   
+  get '/', to: 'home#index', as: :home
   get '/pagamento/sucesso', to: 'pagamentos#sucesso', as: :pagamento_sucesso
   get '/pagamento/erro', to: 'pagamentos#erro', as: :pagamento_erro
   get '/pagamento/processando', to: 'pagamentos#processando', as: :pagamento_processando

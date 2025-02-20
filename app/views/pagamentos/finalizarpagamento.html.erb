@@ -10,7 +10,7 @@
     const renderPaymentBrick = async (bricksBuilder) => {
       const settings = {
         initialization: {
-          amount: 1000,
+          amount: 100,
           preferenceId: "<PREFERENCE_ID>",
           payer: {
             firstName: "Takas",
@@ -34,7 +34,7 @@
           onReady: () => {
           },
           onSubmit: ({ selectedPaymentMethod, formData }) => {
-          console.log("📤 Enviando para /process_payment:", JSON.stringify(formData, null, 2));
+          console.log("Enviando para /process_payment:", JSON.stringify(formData, null, 2));
             return new Promise((resolve, reject) => {
               fetch("/pagamento", {
                 method: "POST",
